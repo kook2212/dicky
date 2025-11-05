@@ -3,205 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 這行很重要，告訴搜尋引擎不要索引這個頁面，保護您的隱私 -->
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- 網頁標題 -->
     <title>張偉德 (Dicky Cheung) - 數位名片</title>
+    
+    <!-- CSS 樣式：決定了名片的設計、顏色和排版 -->
     <style>
-        /* CSS 樣式：確保在所有裝置上都有良好的視覺效果 */
-        :root {
-            --primary-color: #007AFF; /* 主色調，類似 iOS 的藍色 */
-            --background-color: #f4f4f9;
-            --card-background: #ffffff;
-            --text-color: #333333;
-            --light-text-color: #888888;
-        }
+        /* 引入思源黑體，讓中文字體更美觀 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+        /* 全局設定 */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: var(--background-color);
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f0f2f5; /* 淡灰色背景，突顯卡片 */
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* 從頂部開始對齊 */
             min-height: 100vh;
+            padding: 20px;
             box-sizing: border-box;
         }
+
+        /* 卡片主體 */
         .card {
-            background-color: var(--card-background);
-            border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            max-width: 400px;
+            background-color: #ffffff;
+            max-width: 420px;
             width: 100%;
-            box-sizing: border-box;
+            border-radius: 20px; /* 更大的圓角 */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* 確保內容不會超出圓角 */
             text-align: center;
         }
+
+        /* 卡片頂部背景圖 */
+        .card-header {
+            background: linear-gradient(45deg, #ff8c00, #ffc107); /* 橙色漸變背景 */
+            height: 120px;
+            position: relative;
+        }
+
+        /* 個人頭像 */
         .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--primary-color);
-            margin-bottom: 20px;
+            border: 5px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            bottom: -60px; /* 一半在背景圖內，一半在外 */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            font-weight: 700;
+            color: #495057;
         }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* 卡片內容區域 */
+        .card-body {
+            padding: 80px 25px 25px 25px; /* 頂部留出空間給頭像 */
+        }
+
+        /* 姓名 */
         .name {
             font-size: 26px;
-            font-weight: 600;
-            color: var(--text-color);
+            font-weight: 700;
             margin: 0;
+            color: #333;
         }
+
+        /* 職稱 */
         .title {
-            font-size: 18px;
-            color: var(--light-text-color);
+            font-size: 16px;
+            font-weight: 500;
+            color: #6c757d;
             margin: 5px 0 25px 0;
         }
-        .info-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            text-align: left;
+
+        /* 資訊區塊分隔線 */
+        .divider {
+            border: 0;
+            height: 1px;
+            background-color: #e9ecef;
+            margin: 25px 0;
         }
+        
+        /* 每個聯絡資訊區塊 */
+        .info-section {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .info-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ff8c00; /* 呼應頂部顏色 */
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f2f5;
+            padding-bottom: 5px;
+        }
+
+        /* 每一條聯絡資訊 */
         .info-item {
             display: flex;
             align-items: center;
             margin-bottom: 15px;
-            font-size: 16px;
+            font-size: 15px;
+        }
+        .info-item svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            fill: #6c757d; /* 圖示顏色 */
+            flex-shrink: 0;
         }
         .info-item a {
-            color: var(--primary-color);
+            color: #333;
             text-decoration: none;
             word-break: break-all;
+            transition: color 0.3s;
         }
-        .info-item .icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 15px;
-            fill: var(--primary-color);
+        .info-item a:hover {
+            color: #ff8c00;
         }
+
+        /* 按鈕容器 */
         .button-container {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px; /* 按鈕之間的間距 */
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 一行兩個按鈕 */
+            gap: 10px;
+            margin-top: 25px;
         }
-        .download-btn {
-            display: block; /* 讓 <a> 標籤像塊級元素一樣佔滿整行 */
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 500;
+
+        /* 按鈕樣式 */
+        .btn {
+            display: block;
+            padding: 12px 10px;
+            border-radius: 10px;
             text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s;
+            text-align: center;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
         }
-        .download-btn:hover {
-            background-color: #0056b3;
+        .btn-primary {
+            background-color: #ff8c00;
+            color: #ffffff;
+            grid-column: 1 / -1; /* 主要按鈕佔滿整行 */
+        }
+        .btn-primary:hover {
+            background-color: #e67e00;
             transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 140, 0, 0.4);
         }
-        /* 針對 CSV 按鈕的特定樣式 */
-        .download-btn.csv {
-            background-color: #34C759; /* 綠色 */
+        .btn-secondary {
+            background-color: #e9ecef;
+            color: #333;
         }
-        .download-btn.csv:hover {
-            background-color: #2b9d48;
+        .btn-secondary:hover {
+            background-color: #d8dcdf;
         }
     </style>
 </head>
 <body>
 
+    <!-- 卡片開始 -->
     <div class="card">
-        <!-- 您可以替換成自己的頭像圖片 URL，或者使用下面的 SVG -->
-        <svg class="avatar" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="50" fill="#e0e0e0"/>
-            <path d="M50,65 C35,65 25,75 25,75 L25,85 L75,85 L75,75 C75,75 65,65 50,65 Z" fill="#a0a0a0"/>
-            <circle cx="50" cy="45" r="15" fill="#a0a0a0"/>
-        </svg>
+        <div class="card-header">
+            <div class="avatar">偉德</div>
+        </div>
 
-        <h1 class="name">張偉德 (Dicky Cheung)</h1>
-        <p class="title">首席軟體工程師 | ABC Technology Ltd.</p>
+        <div class="card-body">
+            <h1 class="name">張偉德 Cheung Wai Tak, Dicky</h1>
+            <p class="title">主任 (Officer-in-charge) / 註冊社工 (RSW)</p>
+            
+            <div class="info-section">
+                <h3>路德會利東展能中心</h3>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <span>香港鴨脷洲利東邨東逸樓217-224號</span>
+                </div>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <a href="tel:+85228711013">2871 1013</a>
+                </div>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M19 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 18H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8-4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8-4H7V8h2v2zm4 0h-2V8h2v2z"/></svg>
+                    <span>傳真: 2871 1381</span>
+                </div>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <a href="mailto:r04@hklss.hk">r04@hklss.hk</a>
+                </div>
+            </div>
 
-        <ul class="info-list">
-            <li class="info-item">
-                <span class="icon">
-                    <svg viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg>
-                </span>
-                <a href="tel:+85298765432">+852 9876 5432</a>
-            </li>
-            <li class="info-item">
-                <span class="icon">
-                    <svg viewBox="0 0 24 24"><path d="M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4M20,8L12,13L4,8V6L12,11L20,6V8Z"/></svg>
-                </span>
-                <a href="mailto:dicky.cheung@abctech.com">dicky.cheung@abctech.com</a>
-            </li>
-            <li class="info-item">
-                <span class="icon">
-                    <svg viewBox="0 0 24 24"><path d="M12,2C15.86,2 19,5.13 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9C5,5.13 8.13,2 12,2M12,11.5A2.5,2.5 0 0,0 14.5,9A2.5,2.5 0 0,0 12,6.5A2.5,2.5 0 0,0 9.5,9A2.5,2.5 0 0,0 12,11.5Z"/></svg>
-                </span>
-                <span>香港中環畢打街1號</span>
-            </li>
-        </ul>
+            <div class="info-section">
+                <h3>路德會利東宿舍</h3>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <span>香港鴨脷洲利東邨東安樓118-123號</span>
+                </div>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <a href="tel:+85228711282">2871 1282</a>
+                </div>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M19 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 18H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8-4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8-4H7V8h2v2zm4 0h-2V8h2v2z"/></svg>
+                    <span>傳真: 2871 1282</span>
+                </div>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <a href="mailto:r05@hklss.hk">r05@hklss.hk</a>
+                </div>
+            </div>
 
-        <div class="button-container">
-            <!-- 
-                重要更動：
-                1. 使用 <a> 標籤，因為它天生就是用來做連結和下載的。
-                2. href="#" 是一個佔位符，JavaScript 會在點擊時動態替換它。
-                3. download 屬性告訴瀏覽器這是一個下載連結，並指定預設檔名。
-            -->
-            <a id="downloadVcfBtn" href="#" class="download-btn" download="">儲存聯絡人 (VCF)</a>
-            <a id="downloadCsvBtn" href="#" class="download-btn csv" download="">下載為試算表 (CSV)</a>
+            <hr class="divider">
+
+            <!-- 互動按鈕區 -->
+            <div class="button-container">
+                <!-- 【重要修改】將 QR Code 按鈕替換為直接下載的 VCF 按鈕 -->
+                <a id="downloadVcfBtn" href="#" class="btn btn-primary">儲存聯絡人 (VCF)</a>
+
+                <a href="https://www.hklss.hk/hk/service-information/r-division/123-r05" target="_blank" class="btn btn-secondary">訪問機構網站</a>
+                <a href="https://maps.app.goo.gl/s89XE8EGHjZphTdg7" target="_blank" class="btn btn-secondary">導航至展能中心</a>
+                <a href="https://maps.app.goo.gl/4qZ1C2RyCEL584mG7" target="_blank" class="btn btn-secondary">導航至宿舍</a>
+            </div>
         </div>
     </div>
+    <!-- 卡片結束 -->
 
+    <!-- 【重要修改】JavaScript 區域，已移除 QR Code 相關代碼，並加入 VCF 直接下載功能 -->
     <script>
-        // 將腳本放在 </body> 之前，確保所有 HTML 元素都已載入
-        
-        // 1. 將聯絡人資料集中管理在一個物件中，方便取用和修改
+        // 1. 將所有聯絡人資料集中管理在一個物件中，方便取用和修改
         const contactInfo = {
-            firstName: '偉德',
             lastName: '張',
-            fullName: '張偉德 Dicky Cheung',
-            org: 'ABC Technology Ltd.',
-            title: '首席軟體工程師',
-            phone: '+85298765432',
-            email: 'dicky.cheung@abctech.com',
-            address: '香港中環畢打街1號',
-            fileName: 'Dicky_Cheung_Contact' // 用於檔案名稱，避免中文亂碼
+            firstName: '偉德',
+            fullName: '張偉德 Cheung Wai Tak, Dicky',
+            title: '主任 (Officer-in-charge) / 註冊社工 (RSW)',
+            fileName: 'Cheung_Wai_Tak_Dicky_Contact', // 用於檔案名稱
+            
+            // 第一個機構的資料
+            org1: {
+                name: '路德會利東展能中心',
+                tel: '2871 1013',
+                fax: '2871 1381',
+                email: 'r04@hklss.hk',
+                address: '香港鴨脷洲利東邨東逸樓217-224號'
+            },
+            
+            // 第二個機構的資料
+            org2: {
+                name: '路德會利東宿舍',
+                tel: '2871 1282',
+                fax: '2871 1282',
+                email: 'r05@hklss.hk',
+                address: '香港鴨脷洲利東邨東安樓118-123號'
+            },
+            
+            website: 'https://www.hklss.hk/hk/service-information/r-division/123-r05'
         };
 
         // 2. 準備生成 VCF 檔案內容的函數
+        // 這個函數現在會將兩個機構的資料都寫入 VCF 檔案
         function generateVcfData(data) {
             // VCF (Virtual Contact File) 格式的標準寫法
+            // 使用 item1. 前綴來為聯絡人添加第二組公司/地址/電話等資訊
             const vcfContent = `BEGIN:VCARD
 VERSION:3.0
-N:${data.lastName};${data.firstName};;;
-FN:${data.fullName}
-ORG:${data.org}
-TITLE:${data.title}
-TEL;TYPE=CELL:${data.phone}
-EMAIL:${data.email}
-ADR;TYPE=WORK:;;${data.address};;;;
+N;CHARSET=UTF-8:${data.lastName};${data.firstName};;;
+FN;CHARSET=UTF-8:${data.fullName}
+TITLE;CHARSET=UTF-8:${data.title}
+ORG;CHARSET=UTF-8:${data.org1.name}
+TEL;TYPE=WORK,VOICE:${data.org1.tel}
+TEL;TYPE=WORK,FAX:${data.org1.fax}
+EMAIL;TYPE=WORK:${data.org1.email}
+ADR;TYPE=WORK;CHARSET=UTF-8:;;${data.org1.address};;;;
+item1.ORG;CHARSET=UTF-8:${data.org2.name}
+item1.TEL;TYPE=WORK,VOICE:${data.org2.tel}
+item1.TEL;TYPE=WORK,FAX:${data.org2.fax}
+item1.EMAIL;TYPE=WORK:${data.org2.email}
+item1.ADR;TYPE=WORK;CHARSET=UTF-8:;;${data.org2.address};;;;
+URL;TYPE=WORK:${data.website}
 END:VCARD`;
             return vcfContent;
         }
 
-        // 3. 準備生成 CSV 檔案內容的函數
-        function generateCsvData(data) {
-            // CSV (Comma-Separated Values) 格式
-            const header = "姓名,公司,職位,電話,電子郵件,地址";
-            const row = `"${data.fullName}","${data.org}","${data.title}","${data.phone}","${data.email}","${data.address}"`;
-            
-            // 加上 BOM (Byte Order Mark) 來提示 Excel 使用 UTF-8 開啟，避免中文亂碼
-            const BOM = '\uFEFF'; 
-            return BOM + header + '\n' + row;
-        }
-
-        // 4. 找到我們的兩個下載按鈕
+        // 3. 找到我們的下載按鈕
         const vcfBtn = document.getElementById('downloadVcfBtn');
-        const csvBtn = document.getElementById('downloadCsvBtn');
 
-        // 5. 【核心修正】為 VCF 按鈕添加點擊事件監聽器
+        // 4. 為 VCF 按鈕添加點擊事件監聽器 (這是讓下載正常運作的核心)
         vcfBtn.addEventListener('click', function(event) {
             // 設定下載檔名
             this.setAttribute('download', `${contactInfo.fileName}.vcf`);
@@ -221,23 +323,6 @@ END:VCARD`;
             this.href = url;
         });
 
-        // 6. 【核心修正】為 CSV 按鈕添加點擊事件監聽器
-        csvBtn.addEventListener('click', function(event) {
-            // 設定下載檔名
-            this.setAttribute('download', `${contactInfo.fileName}.csv`);
-
-            // 即時生成 CSV 資料
-            const csvData = generateCsvData(contactInfo);
-
-            // 'text/csv' 是 CSV 檔案的標準 MIME 類型
-            const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
-            
-            // 同樣，建立臨時 URL 並設置 href
-            const url = URL.createObjectURL(blob);
-            this.href = url;
-        });
-
     </script>
-
 </body>
 </html>

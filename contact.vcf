@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 這行很重要，告訴搜尋引擎不要索引這個頁面，保護您的隱私 -->
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- 網頁標題 -->
+    <title>張偉德 (Dicky Cheung) - 數位名片</title>
+    
+    <!-- CSS 樣式：決定了名片的設計、顏色和排版 -->
+    <style>
+        /* 引入思源黑體，讓中文字體更美觀 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+        /* 全局設定 */
+        body {
+            margin: 0;
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f0f2f5; /* 淡灰色背景，突顯卡片 */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* 從頂部開始對齊 */
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 卡片主體 */
+        .card {
+            background-color: #ffffff;
+            max-width: 420px;
+            width: 100%;
+            border-radius: 20px; /* 更大的圓角 */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* 確保內容不會超出圓角 */
+            text-align: center;
+        }
+
+        /* 卡片頂部背景圖 */
+        .card-header {
+            background: linear-gradient(45deg, #ff8c00, #ffc107); /* 橙色漸變背景 */
+            height: 120px;
+            position: relative;
+        }
+
+        /* 個人頭像 */
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            bottom: -60px; /* 一半在背景圖內，一半在外 */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            font-weight: 700;
+            color: #495057;
+            /* 如果您有照片，請刪除下面的 background-color 到 color 的所有行，並在 img 標籤中加入 src */
+        }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* 卡片內容區域 */
+        .card-body {
+            padding: 80px 25px 25px 25px; /* 頂部留出空間給頭像 */
+        }
+
+        /* 姓名 */
+        .name {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0;
+            color: #333;
+        }
+
+        /* 職稱 */
+        .title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #6c757d;
+            margin: 5px 0 25px 0;
+        }
+
+        /* 資訊區塊分隔線 */
+        .divider {
+            border: 0;
+            height: 1px;
+            background-color: #e9ecef;
+            margin: 25px 0;
+        }
+        
+        /* 每個聯絡資訊區塊 */
+        .info-section {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .info-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ff8c00; /* 呼應頂部顏色 */
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f2f5;
+            padding-bottom: 5px;
+        }
+
+        /* 每一條聯絡資訊 */
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .info-item svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            fill: #6c757d; /* 圖示顏色 */
+            flex-shrink: 0;
+        }
+        .info-item a {
+            color: #333;
+            text-decoration: none;
+            word-break: break-all;
+            transition: color 0.3s;
+        }
+        .info-item a:hover {
+            color: #ff8c00;
+        }
+
+        /* 按鈕容器 */
+        .button-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 一行兩個按鈕 */
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        /* 按鈕樣式 */
+        .btn {
+            display: block;
+            padding: 12px 10px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #ff8c00;
+            color: #ffffff;
+            grid-column: 1 / -1; /* 主要按鈕佔滿整行 */
+        }
+        .btn-primary:hover {
+            background-color: #e67e00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 140, 0, 0.4);
+        }
+        .btn-secondary {
+            background-color: #e9ecef;
+            color: #333;
+        }
+        .btn-secondary:hover {
+            background-color: #d8dcdf;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 卡片開始 -->
+    <div class="card">
+        <div class="card-header">
+            <!-- 
+                頭像區塊：
+                1. 如果您沒有照片，現在會顯示姓名縮寫 "偉德"。
+                2. 如果您有照片，請將照片檔案 (例如 myphoto.jpg) 和這個 html 檔案放在同一個資料夾，
+                   然後刪除下面的 <div class="avatar">...</div>，並取消註解下面的 <img ... /> 標籤。
+            -->
+            <div class="avatar">偉德</div>
+            <!-- <img src="myphoto.jpg" alt="張偉德頭像" class="avatar"> -->
+        </div>
+
+        <div class="card-body">
+            <h1 class="name">張偉德 Cheung Wai Tak, Dicky</h1>
+            <p class="title">主任 (Officer-in-charge) / 註冊社工 (RSW)</p>
+            
+            <div class="info-section">
+                <h3>路德會利東展能中心</h3>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <span>香港鴨脷洲利東邨東逸樓217-224號</span>
+                </div>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <a href="tel:+85228711013">2871 1013</a>
+                </div>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M19 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 18H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8-4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8-4H7V8h2v2zm4 0h-2V8h2v2z"/></svg>
+                    <span>傳真: 2871 1381</span>
+                </div>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <a href="mailto:r04@hklss.hk">r04@hklss.hk</a>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>路德會利東宿舍</h3>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <span>香港鴨脷洲利東邨東安樓118-123號</span>
+                </div>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <a href="tel:+85228711282">2871 1282</a>
+                </div>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M19 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 18H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8-4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8-4H7V8h2v2zm4 0h-2V8h2v2z"/></svg>
+                    <span>傳真: 2871 1282</span>
+                </div>
+                <div class="info-item">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <a href="mailto:r05@hklss.hk">r05@hklss.hk</a>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- 互動按鈕區 -->
+            <div class="button-container">
+                <!-- 
+                    這個按鈕讓別人可以一鍵將您的聯絡資訊存到手機通訊錄。
+                    您需要建立一個 contact.vcf 檔案，並和這個 html 檔案放在一起。
+                    詳細製作方法請看下方的教學。
+                -->
+                <a href="contact.vcf" class="btn btn-primary">儲存聯絡資訊到手機</a>
+
+                <a href="http://leitung-dachostel.hklss.hk" target="_blank" class="btn btn-secondary">訪問機構網站</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Lei+Tung+Lutheran+Day+Activity+Centre" target="_blank" class="btn btn-secondary">導航至展能中心</a>
+            </div>
+        </div>
+    </div>
+    <!-- 卡片結束 -->
+
+</body>
+</html>

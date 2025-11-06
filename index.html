@@ -14,6 +14,11 @@
         /* 引入思源黑體，讓中文字體更美觀 */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
 
+        /* 【重要改善】防止行動裝置過度滾動（橡皮筋效應） */
+        html, body {
+            overscroll-behavior-y: contain;
+        }
+
         /* 全局設定 */
         body {
             margin: 0;
@@ -21,8 +26,7 @@
             background-color: #f0f2f5; /* 淡灰色背景，突顯卡片 */
             display: flex;
             flex-direction: column; /* 讓卡片和下方的文字垂直排列 */
-            /* 【重要修改】將垂直對齊方式改為置中，以確保卡片和頁腳整體居中顯示 */
-            justify-content: center; 
+            justify-content: space-between; /* 將內容推向頂部和底部 */
             align-items: center; /* 水平置中所有內容 */
             min-height: 100vh;
             padding: 20px;
@@ -38,6 +42,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden; /* 確保內容不會超出圓角 */
             text-align: center;
+            margin-top: 20px; /* 增加與頂部的距離，避免緊貼螢幕邊緣 */
         }
 
         /* 卡片頂部背景圖 */
@@ -62,7 +67,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 38px; /* 稍微縮小字體以容納英文名 */
+            font-size: 40px; 
             font-weight: 700;
             color: #495057;
         }
@@ -180,7 +185,6 @@
 
         /* 頁腳樣式 */
         .powered-by {
-            margin-top: 25px; /* 與卡片之間的距離 */
             margin-bottom: 10px; /* 與頁面底部的距離 */
             font-size: 14px;
             color: #888888; /* 使用較淡的顏色，不搶風頭 */
@@ -193,7 +197,6 @@
     <!-- 卡片開始 -->
     <div class="card">
         <div class="card-header">
-            <!-- 【重要修改】將頭像文字改為 "Dicky" -->
             <div class="avatar">Dicky</div>
         </div>
 

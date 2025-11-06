@@ -20,8 +20,10 @@
             font-family: 'Noto Sans TC', sans-serif;
             background-color: #f0f2f5; /* 淡灰色背景，突顯卡片 */
             display: flex;
-            justify-content: center;
-            align-items: flex-start; /* 從頂部開始對齊 */
+            flex-direction: column; /* 讓卡片和下方的文字垂直排列 */
+            /* 【重要修改】將垂直對齊方式改為置中，以確保卡片和頁腳整體居中顯示 */
+            justify-content: center; 
+            align-items: center; /* 水平置中所有內容 */
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
@@ -60,7 +62,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 48px;
+            font-size: 38px; /* 稍微縮小字體以容納英文名 */
             font-weight: 700;
             color: #495057;
         }
@@ -175,6 +177,15 @@
         .btn-secondary:hover {
             background-color: #d8dcdf;
         }
+
+        /* 頁腳樣式 */
+        .powered-by {
+            margin-top: 25px; /* 與卡片之間的距離 */
+            margin-bottom: 10px; /* 與頁面底部的距離 */
+            font-size: 14px;
+            color: #888888; /* 使用較淡的顏色，不搶風頭 */
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -182,7 +193,8 @@
     <!-- 卡片開始 -->
     <div class="card">
         <div class="card-header">
-            <div class="avatar">偉德</div>
+            <!-- 【重要修改】將頭像文字改為 "Dicky" -->
+            <div class="avatar">Dicky</div>
         </div>
 
         <div class="card-body">
@@ -233,9 +245,7 @@
 
             <!-- 互動按鈕區 -->
             <div class="button-container">
-                <!-- 【重要修改】將 QR Code 按鈕替換為直接下載的 VCF 按鈕 -->
                 <a id="downloadVcfBtn" href="#" class="btn btn-primary">儲存聯絡人 (VCF)</a>
-
                 <a href="https://www.hklss.hk/hk/service-information/r-division/123-r05" target="_blank" class="btn btn-secondary">訪問機構網站</a>
                 <a href="https://maps.app.goo.gl/s89XE8EGHjZphTdg7" target="_blank" class="btn btn-secondary">導航至展能中心</a>
                 <a href="https://maps.app.goo.gl/4qZ1C2RyCEL584mG7" target="_blank" class="btn btn-secondary">導航至宿舍</a>
@@ -244,7 +254,12 @@
     </div>
     <!-- 卡片結束 -->
 
-    <!-- 【重要修改】JavaScript 區域，已移除 QR Code 相關代碼，並加入 VCF 直接下載功能 -->
+    <!-- 頁腳 -->
+    <footer class="powered-by">
+        Power by 張先生
+    </footer>
+
+    <!-- JavaScript 區域 -->
     <script>
         // 1. 將所有聯絡人資料集中管理在一個物件中，方便取用和修改
         const contactInfo = {
@@ -276,10 +291,7 @@
         };
 
         // 2. 準備生成 VCF 檔案內容的函數
-        // 這個函數現在會將兩個機構的資料都寫入 VCF 檔案
         function generateVcfData(data) {
-            // VCF (Virtual Contact File) 格式的標準寫法
-            // 使用 item1. 前綴來為聯絡人添加第二組公司/地址/電話等資訊
             const vcfContent = `BEGIN:VCARD
 VERSION:3.0
 N;CHARSET=UTF-8:${data.lastName};${data.firstName};;;
@@ -303,26 +315,14 @@ END:VCARD`;
         // 3. 找到我們的下載按鈕
         const vcfBtn = document.getElementById('downloadVcfBtn');
 
-        // 4. 為 VCF 按鈕添加點擊事件監聽器 (這是讓下載正常運作的核心)
+        // 4. 為 VCF 按鈕添加點擊事件監聽器
         vcfBtn.addEventListener('click', function(event) {
-            // 設定下載檔名
             this.setAttribute('download', `${contactInfo.fileName}.vcf`);
-
-            // 即時生成 VCF 資料
             const vcfData = generateVcfData(contactInfo);
-            
-            // 建立一個 Blob 物件 (Binary Large Object)，用來存放我們的檔案內容
-            // 'text/vcard' 是 VCF 檔案的標準 MIME 類型
             const blob = new Blob([vcfData], { type: 'text/vcard;charset=utf-8' });
-            
-            // 建立一個指向這個 Blob 的臨時 URL
             const url = URL.createObjectURL(blob);
-            
-            // 將按鈕的 href 屬性設置為這個臨時 URL
-            // 因為這是在點擊事件中發生的，瀏覽器會立即跟隨這個新連結，從而觸發下載
             this.href = url;
         });
-
     </script>
 </body>
 </html>

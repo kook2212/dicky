@@ -14,7 +14,7 @@
         /* 引入思源黑體，讓中文字體更美觀 */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
 
-        /* 【重要改善】防止行動裝置過度滾動（橡皮筋效應） */
+        /* 【改善 Part 1】防止行動裝置過度滾動（橡皮筋效應） */
         html, body {
             overscroll-behavior-y: contain;
         }
@@ -29,7 +29,11 @@
             justify-content: space-between; /* 將內容推向頂部和底部 */
             align-items: center; /* 水平置中所有內容 */
             min-height: 100vh;
-            padding: 20px;
+            
+            /* 【改善 Part 2】在頁面底部增加額外留白，確保頁面始終可滾動 */
+            /* 原為 padding: 20px; */
+            padding: 20px 20px 60px 20px; /* 上 20px, 左右 20px, 下 60px */
+
             box-sizing: border-box;
         }
 

@@ -3,60 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 這行很重要，告訴搜尋引擎不要索引這個頁面，保護您的隱私 -->
     <meta name="robots" content="noindex, nofollow">
     
-    <!-- 網頁標題 -->
     <title>張偉德 (Dicky Cheung) - 數位名片</title>
     
-    <!-- CSS 樣式：決定了名片的設計、顏色和排版 -->
     <style>
-        /* 引入思源黑體，讓中文字體更美觀 */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
 
-        /* 【改善 Part 1】防止行動裝置過度滾動（橡皮筋效應） */
         html, body {
             overscroll-behavior-y: contain;
         }
 
-        /* 全局設定 */
         body {
             margin: 0;
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: #f0f2f5; /* 淡灰色背景，突顯卡片 */
+            background-color: #f0f2f5;
             display: flex;
-            flex-direction: column; /* 讓卡片和下方的文字垂直排列 */
-            justify-content: space-between; /* 將內容推向頂部和底部 */
-            align-items: center; /* 水平置中所有內容 */
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
             min-height: 100vh;
             
-            /* 【改善 Part 2】在頁面底部增加額外留白，確保頁面始終可滾動 */
-            /* 原為 padding: 20px; */
-            padding: 20px 20px 60px 20px; /* 上 20px, 左右 20px, 下 60px */
+            /* --- 【本次修改】 --- */
+            /* 調整頁面四周的留白：增加上下空間，減少左右空間 */
+            /* 原為 padding: 20px 20px 60px 20px; */
+            padding: 30px 10px 60px 10px; /* 上 30px, 左右 10px, 下 60px */
 
             box-sizing: border-box;
         }
 
-        /* 卡片主體 */
         .card {
             background-color: #ffffff;
             max-width: 420px;
             width: 100%;
-            border-radius: 20px; /* 更大的圓角 */
+            border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden; /* 確保內容不會超出圓角 */
+            overflow: hidden;
             text-align: center;
-            margin-top: 20px; /* 增加與頂部的距離，避免緊貼螢幕邊緣 */
+            /* 由於 body 已有 padding-top，這裡的 margin-top 可以移除或減少 */
+            /* margin-top: 20px; */
         }
 
-        /* 卡片頂部背景圖 */
         .card-header {
-            background: linear-gradient(45deg, #ff8c00, #ffc107); /* 橙色漸變背景 */
+            background: linear-gradient(45deg, #ff8c00, #ffc107);
             height: 120px;
             position: relative;
         }
 
-        /* 個人頭像 */
         .avatar {
             width: 120px;
             height: 120px;
@@ -64,7 +57,7 @@
             border: 5px solid #ffffff;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             position: absolute;
-            bottom: -60px; /* 一半在背景圖內，一半在外 */
+            bottom: -60px;
             left: 50%;
             transform: translateX(-50%);
             background-color: #e9ecef;
@@ -82,12 +75,10 @@
             border-radius: 50%;
         }
 
-        /* 卡片內容區域 */
         .card-body {
-            padding: 80px 25px 25px 25px; /* 頂部留出空間給頭像 */
+            padding: 80px 25px 25px 25px;
         }
 
-        /* 姓名 */
         .name {
             font-size: 26px;
             font-weight: 700;
@@ -95,7 +86,6 @@
             color: #333;
         }
 
-        /* 職稱 */
         .title {
             font-size: 16px;
             font-weight: 500;
@@ -103,7 +93,6 @@
             margin: 5px 0 25px 0;
         }
 
-        /* 資訊區塊分隔線 */
         .divider {
             border: 0;
             height: 1px;
@@ -111,7 +100,6 @@
             margin: 25px 0;
         }
         
-        /* 每個聯絡資訊區塊 */
         .info-section {
             text-align: left;
             margin-bottom: 20px;
@@ -119,13 +107,12 @@
         .info-section h3 {
             font-size: 18px;
             font-weight: 700;
-            color: #ff8c00; /* 呼應頂部顏色 */
+            color: #ff8c00;
             margin-bottom: 15px;
             border-bottom: 2px solid #f0f2f5;
             padding-bottom: 5px;
         }
 
-        /* 每一條聯絡資訊 */
         .info-item {
             display: flex;
             align-items: center;
@@ -136,7 +123,7 @@
             width: 20px;
             height: 20px;
             margin-right: 15px;
-            fill: #6c757d; /* 圖示顏色 */
+            fill: #6c757d;
             flex-shrink: 0;
         }
         .info-item a {
@@ -149,15 +136,13 @@
             color: #ff8c00;
         }
 
-        /* 按鈕容器 */
         .button-container {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 一行兩個按鈕 */
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
             margin-top: 25px;
         }
 
-        /* 按鈕樣式 */
         .btn {
             display: block;
             padding: 12px 10px;
@@ -172,7 +157,7 @@
         .btn-primary {
             background-color: #ff8c00;
             color: #ffffff;
-            grid-column: 1 / -1; /* 主要按鈕佔滿整行 */
+            grid-column: 1 / -1;
         }
         .btn-primary:hover {
             background-color: #e67e00;
@@ -187,18 +172,17 @@
             background-color: #d8dcdf;
         }
 
-        /* 頁腳樣式 */
         .powered-by {
-            margin-bottom: 10px; /* 與頁面底部的距離 */
+            margin-top: 20px; /* 增加卡片與底部文字的間距 */
+            margin-bottom: 10px;
             font-size: 14px;
-            color: #888888; /* 使用較淡的顏色，不搶風頭 */
+            color: #888888;
             text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <!-- 卡片開始 -->
     <div class="card">
         <div class="card-header">
             <div class="avatar">Dicky</div>
@@ -250,7 +234,6 @@
 
             <hr class="divider">
 
-            <!-- 互動按鈕區 -->
             <div class="button-container">
                 <a id="downloadVcfBtn" href="#" class="btn btn-primary">儲存聯絡人 (VCF)</a>
                 <a href="https://www.hklss.hk/hk/service-information/r-division/123-r05" target="_blank" class="btn btn-secondary">訪問機構網站</a>
@@ -259,24 +242,19 @@
             </div>
         </div>
     </div>
-    <!-- 卡片結束 -->
 
-    <!-- 頁腳 -->
     <footer class="powered-by">
         Power by 張先生
     </footer>
 
-    <!-- JavaScript 區域 -->
     <script>
-        // 1. 將所有聯絡人資料集中管理在一個物件中，方便取用和修改
         const contactInfo = {
             lastName: '張',
             firstName: '偉德',
             fullName: '張偉德 Cheung Wai Tak, Dicky',
             title: '主任 (Officer-in-charge) / 註冊社工 (RSW)',
-            fileName: 'Cheung_Wai_Tak_Dicky_Contact', // 用於檔案名稱
+            fileName: 'Cheung_Wai_Tak_Dicky_Contact',
             
-            // 第一個機構的資料
             org1: {
                 name: '路德會利東展能中心',
                 tel: '2871 1013',
@@ -285,7 +263,6 @@
                 address: '香港鴨脷洲利東邨東逸樓217-224號'
             },
             
-            // 第二個機構的資料
             org2: {
                 name: '路德會利東宿舍',
                 tel: '2871 1282',
@@ -297,7 +274,6 @@
             website: 'https://www.hklss.hk/hk/service-information/r-division/123-r05'
         };
 
-        // 2. 準備生成 VCF 檔案內容的函數
         function generateVcfData(data) {
             const vcfContent = `BEGIN:VCARD
 VERSION:3.0
@@ -319,10 +295,8 @@ END:VCARD`;
             return vcfContent;
         }
 
-        // 3. 找到我們的下載按鈕
         const vcfBtn = document.getElementById('downloadVcfBtn');
 
-        // 4. 為 VCF 按鈕添加點擊事件監聽器
         vcfBtn.addEventListener('click', function(event) {
             this.setAttribute('download', `${contactInfo.fileName}.vcf`);
             const vcfData = generateVcfData(contactInfo);
